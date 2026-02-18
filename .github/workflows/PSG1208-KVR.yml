@@ -25,7 +25,8 @@ jobs:
       env:
         KERNEL: 3.4
       run: |
-        git clone --depth=1 https://github.com/xiaiohuan/Padavan-KVR.git /opt/rt-n56u
+        #git clone --depth=1 https://github.com/xiaiohuan/Padavan-KVR.git /opt/rt-n56u
+        git clone --depth=1 https://github.com/lovemini/Padavan-KVR-3.4.git /opt/rt-n56u
         cd /opt/rt-n56u/toolchain-mipsel
         sh dl_toolchain.sh
         mkdir -p /opt/images/
@@ -53,14 +54,6 @@ jobs:
         #echo "CONFIG_FIRMWARE_INCLUDE_ZEROTIER=y" >> .config #zerotier ~1.3M
         
         echo "CONFIG_16M_REBOOT_FIXUP=y" >> .config #16M
-        echo "CONFIG_FIRMWARE_INCLUDE_FRPC=y" >> .config #内网穿透FRPC
-        echo "CONFIG_FIRMWARE_INCLUDE_FRPS=n" >> .config #内网穿透FRPS
-        
-        #lovemini软件更新
-        #frp更新至0.54,经过upx压缩
-        sed -i 's/FRP_VER := 0.29.0/FRP_VER := 0.54.0/g' ./user/frp/Makefile
-        sed -i 's/https:\/\/github.com\/fatedier\/frp\/releases\/download/https:\/\/github.com\/lovemini\/Padavan.APPs\/releases\/download/g' ./user/frp/Makefile
-        sed -i 's/FRP_URL := $(FRP_URL_BASE)\/v$(FRP_VER)\/$(FRP_NAME).tar.gz/FRP_URL := $(FRP_URL_BASE)\/frp_v$(FRP_VER)\/$(FRP_NAME).tar.gz/g' ./user/frp/Makefile
         
         #########################################################################################
         #自定义添加其它功能请参考源码configs/templates/目录下的config文件。按照上面的格式添加即可
